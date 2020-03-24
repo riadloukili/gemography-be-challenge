@@ -1,24 +1,23 @@
-# Lumen PHP Framework
+# Gemography Back-end Challenge
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## About
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+In this challenge, I was asked to develop a back-end using whatever technology I'm comfortable with. For the sake of simplicity and readability, I chose PHP and Lumen framework. A more optimal and fast solution can be implemented with Go or Java.
 
-## Official Documentation
+## Steps taken
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+First I decided to have a look at the GitHub API Docs to have an idea of how the whole thing works. It turned out to be quite nice, there was no authentication required to search the public repositories (Thanks GitHub).
 
-## Contributing
+Then I chose PHP and Lumen because for their simplicity, as I said earlier, a Go/C++/Java backend would've been faster and less memory-hungry.
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+After initializing the Lumen project, I went ahead and installed Guzzle HTTP Client (because it's my favorite).
 
-## Security Vulnerabilities
+I mapped out all the needed routes which only happen to be 3:
+ * `/` The index/help route.
+ * `/languages` The route to get all languages with the count.
+ * `/languages/{language}` The route to get all repos for a specific language.
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+The `/` and `/languages` routes were quite trivial to implement, I just did a basic GET request and JSON parse/stringifying.
 
-## License
+On the other hand, the `/languages/{lang}` was a bit troubling, as I wanted to show the same result  for "LanguageName", "languagename" and "LaNgUaGeNaMe" so I just compared to `strtolower` to of each repo with the `strtolower` of the URI param and I took the correct language name from the repos themselves.
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
