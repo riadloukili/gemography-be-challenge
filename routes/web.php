@@ -12,3 +12,6 @@
 */
 
 $router->get('/', ['as' => 'index', 'uses' => 'HomeController@help']);
+
+$router->get('/languages', ['as' => 'languages', 'uses' => 'ReposController@all']);
+$router->get('/languages/{language}', ['as' => 'language', 'uses' => 'ReposController@get']);
