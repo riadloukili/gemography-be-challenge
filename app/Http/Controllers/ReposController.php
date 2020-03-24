@@ -37,8 +37,36 @@ class ReposController extends Controller
         ];
     }
 
+    /**
+     * Get repos for specific language
+     * Route: /languages/:language
+     * @param $language
+     * @return array
+     */
     public function get($language)
     {
+        // To handle the case where JavaScript should be the same as JaVaScRiPt
+        $language = strtolower($language);
+        // Assume the language spelling is correct at first and then correct it later
+        $correct_language = $language;
+        $json_response = $this->getTrendingRepos(100);
+        $repos = [];
+        foreach ($json_response->items as $repo) {
+            if (strtolower($repo->language) === $language) {
+                $repos[] = [
+                    'name' => $repo->full_name,
+                    'description' => $repo->description,
+                    'stars' => $repo->stargazers_count,
+                    'issues' => $repo->open_issues,
+                ];
+                if($correct_language != $repo->language) $correct_language = $repo->language;
+            }
+        }
+        return [
+            'ok' => true,
+            'language' => $correct_language,
+            'repos' => $repos
+        ];
     }
 
     /**
